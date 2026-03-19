@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./List.css";
 import TodoItem from "./TodoItem";
 const List = ({ todos, onUpdate, onDelete }) => {
@@ -18,7 +18,7 @@ const List = ({ todos, onUpdate, onDelete }) => {
 
   const filteredTodos = getFilteredData();
 
-  const getAnalyzedData = () => {
+  const { totalCount, doneCount, notDoneCount } = useMemo(() => {
     const totalCount = todos.length;
     const doneCount = todos.filter((todo) => todo.isDone).length;
     const notDoneCount = totalCount - doneCount;
@@ -27,9 +27,7 @@ const List = ({ todos, onUpdate, onDelete }) => {
       doneCount,
       notDoneCount,
     };
-  };
-
-  const { totalCount, doneCount, notDoneCount } = getAnalyzedData();
+  }, [todos]);
 
   return (
     <div className="List">
