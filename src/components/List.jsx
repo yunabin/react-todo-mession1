@@ -34,16 +34,30 @@ const List = () => {
 
   return (
     <div className="List">
-      <h4>Todo List 💪</h4>
-      <div>
-        <div>total: {totalCount}</div>
-        <div>done: {doneCount}</div>
-        <div>notDone: {notDoneCount}</div>
+      <div className="list_header">
+        <h4>💪 Todo List</h4>
+
+        <div className="list_summary">
+          <span>
+            {doneCount} / {totalCount}
+          </span>
+        </div>
+
+        <div className="progress_bar_wrapper">
+          <div
+            className="progress_bar_fill"
+            style={{
+              width: `${totalCount === 0 ? 0 : (doneCount / totalCount) * 100}%`,
+            }}
+          >
+            {totalCount > 0 && `${Math.round((doneCount / totalCount) * 100)}%`}
+          </div>
+        </div>
       </div>
       <input
         value={search}
         onChange={onChangeSearch}
-        placeholder="검색어를 입력해 주세요!"
+        placeholder="할 일 검색"
       />
       <div className="todos_wrapper">
         {filteredTodos.map((todo) => {
